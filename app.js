@@ -6,6 +6,12 @@ const pixelCtx = pixelCanvas.getContext('2d');
 const frames = [];
 const spriteSheetCanvas = document.getElementById('spriteSheet');
 const spriteCtx = spriteSheetCanvas.getContext('2d');
+const pixelSizeSlider = document.getElementById('pixelSizeSlider');
+const pixelSizeInput = document.getElementById('pixelSizeInput');
+const decreaseButton = document.getElementById('decreasePixelSize');
+const increaseButton = document.getElementById('increasePixelSize');
+const pixelCanvasElement = document.getElementById('pixelCanvas');
+
 
 // Load and display image
 imageInput.addEventListener('change', (event) => {
@@ -15,34 +21,24 @@ imageInput.addEventListener('change', (event) => {
         const img = new Image();
         img.src = e.target.result;
         img.onload = function () {
-            window.addEventListener('resize', () => {
-                const canvases = document.querySelectorAll('canvas');
-                canvases.forEach(canvas => {
-                    // Force the canvas to maintain its CSS-defined dimensions
-                    canvas.style.width = `${canvas.width}px`;
-                    canvas.style.height = `${canvas.height}px`;
-                });
-            });
-            
-            
             const MAX_WIDTH = 400; // Max width of the display box
             const MAX_HEIGHT = 300; // Max height of the display box
-        
+
             // Calculate scaling ratio to fit image within 400x300
             const widthRatio = MAX_WIDTH / img.width;
             const heightRatio = MAX_HEIGHT / img.height;
             const scale = Math.min(widthRatio, heightRatio); // Preserve aspect ratio
-        
+
             const scaledWidth = img.width * scale;
             const scaledHeight = img.height * scale;
-        
+
             // Set canvas dimensions to scaled image size
             originalCanvas.width = scaledWidth;
             originalCanvas.height = scaledHeight;
-        
+
             pixelCanvas.width = scaledWidth;
             pixelCanvas.height = scaledHeight;
-        
+
             // Draw the image onto the canvas
             ctx.drawImage(img, 0, 0, scaledWidth, scaledHeight);
         };
@@ -63,10 +59,33 @@ function pixelateImage(pixelSize) {
     pixelCtx.drawImage(pixelCanvas, 0, 0, width, height, 0, 0, pixelCanvas.width, pixelCanvas.height);
 }
 
-document.getElementById('pixelSizeSlider').addEventListener('input', (e) => {
-    const pixelSize = parseInt(e.target.value, 10);
+function updatePixelSize(value) {
+    const pixelSize = Math.max(1, Math.min(50, value)); // Clamp between 1 and 50
+    pixelSizeSlider.value = pixelSize;
+    pixelSizeInput.value = pixelSize;
     pixelateImage(pixelSize);
+}
+
+// Slider input
+pixelSizeSlider.addEventListener('input', (e) => {
+    updatePixelSize(parseInt(e.target.value, 10));
 });
+
+// Input box
+pixelSizeInput.addEventListener('input', (e) => {
+    updatePixelSize(parseInt(e.target.value, 10) || 1);
+});
+
+// Buttons
+decreaseButton.addEventListener('click', () => {
+    updatePixelSize(parseInt(pixelSizeSlider.value, 10) - 1);
+});
+
+increaseButton.addEventListener('click', () => {
+    updatePixelSize(parseInt(pixelSizeSlider.value, 10) + 1);
+});
+
+
 
 // Download pixel art
 const downloadBtn = document.getElementById('downloadBtn');
@@ -149,20 +168,3 @@ function playAnimation() {
     animationRunning = true;
     requestAnimationFrame(animate);
 }
-
-
-// Handle window resize for responsive canvas
-window.addEventListener('resize', () => {
-    const canvasElements = [originalCanvas, pixelCanvas, spriteSheetCanvas, animationCanvas];
-    canvasElements.forEach(canvas => {
-        const ctx = canvas.getContext('2d');
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-        // Scale the canvas to fit its parent container
-        canvas.style.width = '100%';
-        canvas.style.height = 'auto';
-
-        // Restore the original pixel data
-        ctx.putImageData(imageData, 0, 0);
-    });
-});

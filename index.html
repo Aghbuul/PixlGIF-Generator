@@ -12,7 +12,13 @@
     <div class="container">
         <div class="controls">
             <input type="file" id="imageInput" />
-            <input type="range" id="pixelSizeSlider" min="1" max="50" value="10">
+            <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                <button id="decreasePixelSize">-</button>
+                <input type="range" id="pixelSizeSlider" min="1" max="50" value="10" style="flex: 1;">
+                <button id="increasePixelSize">+</button>
+                <input type="number" id="pixelSizeInput" min="1" max="50" value="10" style="width: 50px;">
+            </div>
+            
             <button id="downloadBtn">Download Pixel Art</button>
         </div>
         <div class="canvas-container">

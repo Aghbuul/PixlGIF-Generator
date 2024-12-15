@@ -126,7 +126,7 @@ document.getElementById('addFrameBtn').addEventListener('click', () => {
     const frameCtx = frameCanvas.getContext('2d');
     frameCtx.drawImage(pixelCanvas, 0, 0);
     frames.push(frameCanvas);
-    alert(`Frame added! Total frames: ${frames.length}`);
+    console.log(`Frame added! Total frames: ${frames.length}`);
 });
 
 // Generate sprite sheet
@@ -185,8 +185,44 @@ function playAnimation() {
             lastTime = timestamp;
         }
         requestAnimationFrame(animate);
+
+        // Save GIF button logic
+const saveGifBtn = document.getElementById('saveGifBtn');
+
+saveGifBtn.addEventListener('click', () => {
+    if (!frames.length) {
+        alert("No frames to save!");
+        return;
+    }
+
+    const gif = new GIF({
+        workers: 1,
+        quality: 20,
+        workerScript: 'gif.worker.js',  // Tell it where the worker file is
+        width: pixelCanvas.width,
+        height: pixelCanvas.height
+    });
+    
+
+    // Add frames to the GIF
+    frames.forEach(frame => {
+        gif.addFrame(frame, { delay: 1000 / fpsSlider.value });
+    });
+
+    gif.on('finished', (blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'animation.gif';
+        link.click();
+    });
+
+    gif.render();
+    console.log("GIF is being processed...");
+});
+
     }
 
     animationRunning = true;
     requestAnimationFrame(animate);
+
 }

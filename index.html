@@ -1,3 +1,5 @@
+<!-- gif.js library by Johan Nordberg: https://github.com/jnordberg/gif.js -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,6 +39,8 @@
             <button id="addFrameBtn">Add Frame</button>
             <button id="generateSpriteSheetBtn">Generate Sprite Sheet</button>
             <button id="playAnimationBtn">Play Animation</button>
+            <button id="saveGifBtn">Save GIF</button>
+
             <label for="fpsSlider">FPS:</label>
             <input type="range" id="fpsSlider" min="1" max="60" value="10">
         </div>
@@ -44,6 +48,10 @@
         <canvas id="animationCanvas"></canvas>
     </div>
     <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js"></script>
+
+
 </body>
 
 </html>

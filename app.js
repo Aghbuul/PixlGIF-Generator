@@ -104,6 +104,35 @@ clearSpriteSheetBtn.addEventListener('click', () => {
     alert("Sprite sheet wiped. Frames reset!");
 });
 
+const resetAllBtn = document.getElementById('resetAllBtn');
+resetAllBtn.addEventListener('click', () => {
+    // 1) Clear frames
+    frames.length = 0;
+
+    // 2) Clear sprite sheet
+    spriteCtx.clearRect(0, 0, spriteSheetCanvas.width, spriteSheetCanvas.height);
+
+    // 3) Clear pixelCanvas
+    pixelCtx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
+
+    // 4) Clear originalCanvas
+    ctx.clearRect(0, 0, originalCanvas.width, originalCanvas.height);
+
+    // 5) Reset pixelation slider and numeric input (choose your default, e.g. 10)
+    updatePixelSize(10);
+
+    // 6) Reset FPS slider & numeric input
+    updateFps(10);
+
+    // 7) Reset the file input if you want to let user pick a new file
+    const fileInput = document.getElementById('imageInput');
+    fileInput.value = "";  // Clears the selected file
+
+    // 8) Optionally alert
+    alert("Reset everything: frames, canvases, and inputs!");
+});
+
+
 
 
 darkModeToggle.addEventListener('click', () => {

@@ -40,38 +40,68 @@
     </div>
     <div class="container">
         <div class="controls">
-            <button id="addFrameBtn">Add Frame</button>
-            <div id="autoAddControls" style="margin-top: 10px;">
-                <label>
-                    Start: <input type="number" id="startValue" min="1" max="50" value="1" style="width: 50px;">
-                </label>
-                <label>
-                    End: <input type="number" id="endValue" min="1" max="50" value="10" style="width: 50px;">
-                </label>
-                <label>
-                    Step: <input type="number" id="stepValue" min="1" max="50" value="1" style="width: 50px;">
-                </label>
-                <label>
-                    <input type="checkbox" id="autoReverseToggle"> Auto-Reverse
-                </label>
-                <button id="autoAddFramesBtn">Auto Add Frames</button>
-            </div>
+            <button id="addFrameBtn" 
+        title="Capture the current pixelated canvas as a frame for your animation.">
+    Add Frame
+</button>
+
+<div id="autoAddControls" style="margin-top: 10px;">
+    <label>
+        Start: <input type="number" id="startValue" min="1" max="50" value="1" style="width: 50px;">
+    </label>
+    <label>
+        End: <input type="number" id="endValue" min="1" max="50" value="10" style="width: 50px;">
+    </label>
+    <label>
+        Step: <input type="number" id="stepValue" min="1" max="50" value="1" style="width: 50px;">
+    </label>
+    <label>
+        <input type="checkbox" id="autoReverseToggle"> Auto-Reverse
+    </label>
+    <button id="autoAddFramesBtn" 
+            title="Automatically generate frames by varying pixelation levels between start and end values.">
+        Auto Add Frames
+    </button>
+</div>
+
             <label>Skip Frames: 
                 <input type="number" id="skipFrames" min="1" value="1" style="width: 50px;">
             </label>
-            <button id="generateSpriteSheetBtn">Generate Sprite Sheet</button>
-            <button id="playAnimationBtn">Play Animation</button>
-            <button id="saveGifBtn">Save GIF</button>
-            <button id="clearSpriteSheetBtn">Wipe Sprite Sheet</button>
-            <label for="fpsSlider" style="display: block; font-weight: bold; margin-top: 15px;">
-                Animation FPS
-            </label>
-            <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
-                <button id="decreaseFps">-</button>
-                <input type="range" id="fpsSlider" min="1" max="60" value="10" style="width: 150px;">
-                <button id="increaseFps">+</button>
-                <input type="number" id="fpsInput" min="1" max="60" value="10" style="width: 50px;">
-            </div>
+            <button id="generateSpriteSheetBtn" 
+        title="Generate a sprite sheet from all frames in memory.">
+    Generate Sprite Sheet
+</button>
+
+<button id="playAnimationBtn" 
+        title="Preview the frames as an animation in the canvas to the left.">
+    Play Animation
+</button>
+
+<button id="saveGifBtn" 
+        title="Save all frames as an animated GIF.">
+    Save GIF
+</button>
+
+<button id="clearSpriteSheetBtn" 
+        title="Only clears the sprite sheet and resets frames in memory.">
+    Wipe Sprite Sheet
+</button>
+
+<button id="resetAllBtn" 
+        title="Completely resets everything (images, frames, canvases, sliders).">
+    Reset All
+</button>
+
+<label for="fpsSlider" style="display: block; font-weight: bold; margin-top: 15px;">
+    Animation FPS
+</label>
+<div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+    <button id="decreaseFps">-</button>
+    <input type="range" id="fpsSlider" min="1" max="60" value="10" style="width: 150px;">
+    <button id="increaseFps">+</button>
+    <input type="number" id="fpsInput" min="1" max="60" value="10" style="width: 50px;">
+</div>
+
             
         </div>
         <div id="loadingIndicator" style="display: none;">Processing...</div>

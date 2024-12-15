@@ -48,16 +48,37 @@ imageInput.addEventListener('change', (event) => {
 
 // Pixelate image
 function pixelateImage(pixelSize) {
-    const width = originalCanvas.width / pixelSize;
-    const height = originalCanvas.height / pixelSize;
+    let adjustedPixelSize = pixelSize;
+
+    // Ensure whole pixel grid if toggle is enabled
+    adjustedPixelSize = Math.max(1, Math.min(
+        Math.floor(originalCanvas.width / Math.round(originalCanvas.width / pixelSize)),
+        Math.floor(originalCanvas.height / Math.round(originalCanvas.height / pixelSize))
+    ));
+    
+
+    const width = Math.floor(originalCanvas.width / adjustedPixelSize);
+    const height = Math.floor(originalCanvas.height / adjustedPixelSize);
 
     // Draw small version
+    pixelCtx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height); // Clear canvas
     pixelCtx.drawImage(originalCanvas, 0, 0, width, height);
 
     // Scale it back up
     pixelCtx.imageSmoothingEnabled = false;
     pixelCtx.drawImage(pixelCanvas, 0, 0, width, height, 0, 0, pixelCanvas.width, pixelCanvas.height);
+
+    // Update gridlines if active
+    if (gridlinesEnabled) {
+        pixelCanvasElement.style.setProperty('--grid-size', `${adjustedPixelSize}px`);
+    }
+
+    // Update slider and input value for consistency
+    pixelSizeSlider.value = adjustedPixelSize;
+    pixelSizeInput.value = adjustedPixelSize;
 }
+
+
 
 function updatePixelSize(value) {
     const pixelSize = Math.max(1, Math.min(50, value)); // Clamp between 1 and 50
@@ -84,6 +105,7 @@ decreaseButton.addEventListener('click', () => {
 increaseButton.addEventListener('click', () => {
     updatePixelSize(parseInt(pixelSizeSlider.value, 10) + 1);
 });
+
 
 
 

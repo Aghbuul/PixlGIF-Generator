@@ -100,8 +100,10 @@ downloadBtn.addEventListener('click', () => {
 const clearSpriteSheetBtn = document.getElementById('clearSpriteSheetBtn');
 clearSpriteSheetBtn.addEventListener('click', () => {
     spriteCtx.clearRect(0, 0, spriteSheetCanvas.width, spriteSheetCanvas.height);
-    // If desired, frames.length = 0;
+    frames.length = 0;  // This resets the array so all frames are gone
+    alert("Sprite sheet wiped. Frames reset!");
 });
+
 
 
 darkModeToggle.addEventListener('click', () => {

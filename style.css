@@ -18,8 +18,10 @@ h1 {
     padding: 20px;
 }
 
+
+
 .canvas-container {
-    width: 400px;
+    width: 350px;
     height: 300px;
     border: 1px solid #000;
     display: flex;
@@ -36,6 +38,11 @@ canvas {
     width: auto;
     height: auto;
 }
+
+#spriteSheet {
+    border: 1px dotted #999; /* or however you'd like to style it */
+}
+
 
 .canvas-label {
     font-size: 1rem;
@@ -82,4 +89,22 @@ button:active {
 #animationCanvas {
     border: 1px dashed #555;
     background-color: #f0f0f0;
+}
+
+body.dark-mode {
+    background: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode .canvas-container {
+    background-color: #2c2c2c;
+    border-color: #666666;
+}
+
+body.dark-mode button {
+    background: linear-gradient(135deg, #444444, #222222);
+}
+
+body.dark-mode button:hover {
+    background: linear-gradient(135deg, #333333, #111111);
 }

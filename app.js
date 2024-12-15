@@ -11,6 +11,17 @@ const pixelSizeInput = document.getElementById('pixelSizeInput');
 const decreaseButton = document.getElementById('decreasePixelSize');
 const increaseButton = document.getElementById('increasePixelSize');
 const loadingIndicator = document.getElementById('loadingIndicator');
+const darkModeToggle = document.getElementById('darkModeToggle');
+const fpsSlider = document.getElementById('fpsSlider');
+const fpsInput = document.getElementById('fpsInput');
+const decreaseFps = document.getElementById('decreaseFps');
+const increaseFps = document.getElementById('increaseFps');
+const animationCanvas = document.getElementById('animationCanvas');
+const animCtx = animationCanvas.getContext('2d');
+const playAnimationBtn = document.getElementById('playAnimationBtn');
+
+
+
 
 // Load and display image
 imageInput.addEventListener('change', (event) => {
@@ -64,12 +75,37 @@ pixelSizeInput.addEventListener('input', (e) => updatePixelSize(parseInt(e.targe
 decreaseButton.addEventListener('click', () => updatePixelSize(parseInt(pixelSizeSlider.value, 10) - 1));
 increaseButton.addEventListener('click', () => updatePixelSize(parseInt(pixelSizeSlider.value, 10) + 1));
 
+function updateFps(value) {
+    // Clamp to 1–60
+    const fpsValue = Math.max(1, Math.min(60, value));
+    fpsSlider.value = fpsValue;
+    fpsInput.value = fpsValue;
+}
+
+// Event listeners for the FPS controls
+fpsSlider.addEventListener('input', (e) => updateFps(parseInt(e.target.value, 10)));
+fpsInput.addEventListener('input', (e) => updateFps(parseInt(e.target.value, 10) || 1));
+decreaseFps.addEventListener('click', () => updateFps(parseInt(fpsSlider.value, 10) - 1));
+increaseFps.addEventListener('click', () => updateFps(parseInt(fpsSlider.value, 10) + 1));
+
+
 const downloadBtn = document.getElementById('downloadBtn');
 downloadBtn.addEventListener('click', () => {
     const link = document.createElement('a');
     link.download = 'pixel-art.png';
     link.href = pixelCanvas.toDataURL();
     link.click();
+});
+
+const clearSpriteSheetBtn = document.getElementById('clearSpriteSheetBtn');
+clearSpriteSheetBtn.addEventListener('click', () => {
+    spriteCtx.clearRect(0, 0, spriteSheetCanvas.width, spriteSheetCanvas.height);
+    // If desired, frames.length = 0;
+});
+
+
+darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
 });
 
 function addFrameToCanvas(pixelSize) {
@@ -133,6 +169,9 @@ saveGifBtn.addEventListener('click', () => {
         height: pixelCanvas.height,
     });
 
+    
+
+
     const skipFrames = parseInt(document.getElementById('skipFrames').value, 10) || 1;
     frames.forEach((frame, index) => {
         if (index % skipFrames === 0) {
@@ -157,10 +196,14 @@ saveGifBtn.addEventListener('click', () => {
 });
 
 // Animation functionality
-const animationCanvas = document.getElementById('animationCanvas');
-const animCtx = animationCanvas.getContext('2d');
-const fpsSlider = document.getElementById('fpsSlider');
-const playAnimationBtn = document.getElementById('playAnimationBtn');
+//const animationCanvas = document.getElementById('animationCanvas');
+//const animCtx = animationCanvas.getContext('2d');
+//const fpsSlider = document.getElementById('fpsSlider');
+//const playAnimationBtn = document.getElementById('playAnimationBtn');
+//const fpsInput = document.getElementById('fpsInput');
+//const decreaseFps = document.getElementById('decreaseFps');
+//const increaseFps = document.getElementById('increaseFps');
+
 
 let animationRunning = false;
 

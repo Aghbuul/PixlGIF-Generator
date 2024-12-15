@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Art Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Pixel Art Generator</h1>
+    <div class="container">
+        <div class="controls">
+            <input type="file" id="imageInput" />
+            <input type="range" id="pixelSizeSlider" min="1" max="50" value="10">
+            <button id="downloadBtn">Download Pixel Art</button>
+        </div>
+        <div class="canvas-container">
+            <canvas id="originalCanvas"></canvas>
+        </div>
+        <div class="canvas-container">
+            <canvas id="pixelCanvas"></canvas>
+        </div>
+        
+    </div>
+    <div class="container">
+        <div class="controls">
+            <button id="addFrameBtn">Add Frame</button>
+            <button id="generateSpriteSheetBtn">Generate Sprite Sheet</button>
+            <button id="playAnimationBtn">Play Animation</button>
+            <label for="fpsSlider">FPS:</label>
+            <input type="range" id="fpsSlider" min="1" max="60" value="10">
+        </div>
+        <canvas id="spriteSheet"></canvas>
+        <canvas id="animationCanvas"></canvas>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
